@@ -11,7 +11,7 @@ import Profile from "./pages/Dashboard/Profile/Profile";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container-fluid gx-0">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

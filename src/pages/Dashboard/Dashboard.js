@@ -9,7 +9,7 @@ import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="container-fluid h-100 w-100 bg-danger gx-0 d-flex">
+    <div className="container-fluid bg-danger gx-0 d-flex h-100">
       {/* //sidebar */}
      <Sidebar/>      
       {/* //main */}
