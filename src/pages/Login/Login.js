@@ -4,16 +4,25 @@ import Card from "../../components/Card/Card";
 // import LoginForm from "../../components/forms/LoginForm";
 import styles from "./Login.module.css";
 import InputMask from "react-input-mask";
+import axios from "axios";
+import { Cookies } from "react-cookie";
 
 const Login = () => {
   const [cnic, setcnic] = useState("");
   const [password, setpassword] = useState("");
 
-
-  const onsubmit=(e)=>{
+  const onsubmit = async (e) => {
+    const obj={password,cnic}
     e.preventDefault();
-  }
 
+    try {
+      const res = await axios.post("http://localhost:3001/login", obj);
+      console.log(res)
+      
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <div className={styles.container}>
