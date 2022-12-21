@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Verification from "./pages/Dashboard/Verification/Verification";
 import Progress from "./pages/Dashboard/Progress/Progress";
 import Profile from "./pages/Dashboard/Profile/Profile";
+import NotFound from "./pages/PageNotFound/NotFound";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
             <Route path="progress" element={<Progress/>}/>
             <Route path="profile" element={<Profile/>}/>
           </Route>
+
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

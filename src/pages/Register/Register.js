@@ -29,7 +29,7 @@ const Register = () => {
     try {
       const res = await axios.post("http://localhost:3001/register", obj);
       if (res.status === 200) {
-        toast.dark("Form Submitted SuccesFully !", {
+        toast.dark("Form Submitted SuccesFully ! You Will be Redirected to Login Page", {
           position: toast.POSITION.TOP_CENTER,
           transition: bounce
 
@@ -49,6 +49,12 @@ const Register = () => {
       alert(e);
       
     }
+
+    ///Empty input fields
+    setcnic(" ")
+    setemail(" ")
+    setname(" ")
+    setpassword(" ")
   };
 
   return (
@@ -77,6 +83,7 @@ const Register = () => {
                             class={`${styles.formcontrol}`}
                             placeholder="Your Name"
                             required
+                            maxlength="20"
                             onChange={(e) => {
                               setname(e.target.value);
                             }}
@@ -130,6 +137,7 @@ const Register = () => {
                             class={`${styles.formcontrol}`}
                             placeholder="Your Password"
                             required
+                            minlength="8"
                             onChange={(e) => {
                               setpassword(e.target.value);
                             }}
