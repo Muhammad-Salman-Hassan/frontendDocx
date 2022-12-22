@@ -9,6 +9,7 @@ import Verification from "./pages/Dashboard/Verification/Verification";
 import Progress from "./pages/Dashboard/Progress/Progress";
 import Profile from "./pages/Dashboard/Profile/Profile";
 import NotFound from "./pages/PageNotFound/NotFound";
+import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
 
 function App() {
   return (
@@ -18,12 +19,14 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/forgetpassword" element={<Forgetpassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/userdashboard" element={<Dashboard />}>
             <Route path="verification" element={<Verification/>}/>
             <Route path="progress" element={<Progress/>}/>
-            <Route path="profile" element={<Profile/>}/>
+            <Route path="profile" element={<Profile />} />
+        
           </Route>
 
           <Route path='*' element={<NotFound />} />
