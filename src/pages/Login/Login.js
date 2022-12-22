@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Router, useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card";
 // import LoginForm from "../../components/forms/LoginForm";
 import styles from "./Login.module.css";
 import InputMask from "react-input-mask";
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import Cookies from "universal-cookie";
+import { toast, ToastContainer ,cssTransition} from "react-toastify";
 
 const Login = () => {
   const [cnic, setcnic] = useState("");
   const [password, setpassword] = useState("");
+  const navigate = useNavigate();
+  const cookies = new Cookies();
 
   const onsubmit = async (e) => {
     const obj={password,cnic}
@@ -18,7 +21,22 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:3001/login", obj);
       console.log(res)
-      
+       cookies.set("TOKEN", res.data.accessToken, {
+          path: "/",
+        });
+        const token = cookies.get("TOKEN");
+       if(res.data.error){
+        toast.error(res.data.error,{
+          position: toast.POSITION.TOP_CENTER,
+        })
+       }else{
+        toast.success("Access Granted",{
+          position: toast.POSITION.TOP_CENTER,
+        })
+        setTimeout(() => {
+          navigate("/userdashboard");
+        }, 3000);
+       }
     } catch (e) {
       alert(e);
     }
@@ -26,6 +44,7 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer/>
       <Card>
         <h2 className={styles.loginHeading}>Login</h2>
 
