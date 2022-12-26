@@ -38,9 +38,9 @@ const Login = () => {
         toast.success("Access Granted",{
           position: toast.POSITION.TOP_CENTER,
         })
-        if(!token===undefined){
-          dispatch(setAuth(true))
-        }
+        // if(!token===undefined){
+        //   dispatch(setAuth(true))
+        // }
         setTimeout(() => {
           navigate("/userdashboard");
         }, 3000);

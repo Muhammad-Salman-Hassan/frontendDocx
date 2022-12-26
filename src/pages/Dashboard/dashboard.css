@@ -63,3 +63,16 @@
     background-color: #01411cd3;
   }
   
+  /* ////////////greeting */
+  .greeting_card{
+    background-color: black;
+  }
+  .greeting{
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  .instruction_para{
+    color: white;
+    font-weight: bold;
+  }
