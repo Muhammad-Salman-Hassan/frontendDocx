@@ -10,6 +10,7 @@ import Progress from "./pages/Dashboard/Progress/Progress";
 import Profile from "./pages/Dashboard/Profile/Profile";
 import NotFound from "./pages/PageNotFound/NotFound";
 import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -22,14 +23,20 @@ function App() {
           <Route path="/forgetpassword" element={<Forgetpassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/userdashboard" element={<Dashboard />}>
-            <Route path="verification" element={<Verification/>}/>
-            <Route path="progress" element={<Progress/>}/>
+          <Route
+            path="/userdashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="verification" element={<Verification />} />
+            <Route path="progress" element={<Progress />} />
             <Route path="profile" element={<Profile />} />
-        
           </Route>
 
-          <Route path='*' element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

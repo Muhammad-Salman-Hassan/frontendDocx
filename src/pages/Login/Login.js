@@ -7,13 +7,18 @@ import InputMask from "react-input-mask";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { toast, ToastContainer ,cssTransition} from "react-toastify";
+import { useDispatch, useSelector } from 'react-redux'
+import { setAuth } from "../../features/user/authSlice";
+
 
 const Login = () => {
   const [cnic, setcnic] = useState("");
   const [password, setpassword] = useState("");
+
   const navigate = useNavigate();
   const cookies = new Cookies();
-
+  // const {phone,hash}=useSelector((state)=>state.auth.otp)
+  const dispatch=useDispatch()
   const onsubmit = async (e) => {
     const obj={password,cnic}
     e.preventDefault();
@@ -33,6 +38,9 @@ const Login = () => {
         toast.success("Access Granted",{
           position: toast.POSITION.TOP_CENTER,
         })
+        if(!token===undefined){
+          dispatch(setAuth(true))
+        }
         setTimeout(() => {
           navigate("/userdashboard");
         }, 3000);
