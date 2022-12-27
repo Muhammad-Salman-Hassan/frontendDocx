@@ -14,7 +14,8 @@ import { setAuth } from "../../features/user/authSlice";
 const Login = () => {
   const [cnic, setcnic] = useState("");
   const [password, setpassword] = useState("");
-
+  const{isAuth}=useSelector((state)=>state.auth)
+  console.log(isAuth)
   const navigate = useNavigate();
   const cookies = new Cookies();
   // const {phone,hash}=useSelector((state)=>state.auth.otp)
@@ -26,10 +27,8 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:3001/login", obj);
       console.log(res)
-       cookies.set("TOKEN", res.data.accessToken, {
-          path: "/",
-        });
-        const token = cookies.get("TOKEN");
+       
+        const token = cookies.get("accessToken");
        if(res.data.error){
         toast.error(res.data.error,{
           position: toast.POSITION.TOP_CENTER,
@@ -38,9 +37,10 @@ const Login = () => {
         toast.success("Access Granted",{
           position: toast.POSITION.TOP_CENTER,
         })
-        // if(!token===undefined){
-        //   dispatch(setAuth(true))
-        // }
+        if(token){
+          dispatch(setAuth(true))
+        }
+      
         setTimeout(() => {
           navigate("/userdashboard");
         }, 3000);

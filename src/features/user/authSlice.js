@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   //   user:null,
-  isAuth: true,
+  isAuth: false,
 };
 
 export const authSlice = createSlice({
@@ -13,7 +13,8 @@ export const authSlice = createSlice({
       //   const {user}=action.payload
 
       //   state.user=user
-      state.isAuth = true;
+      // const {isAuth}=action.payload
+      state.isAuth = action.payload;
     },
   },
 });

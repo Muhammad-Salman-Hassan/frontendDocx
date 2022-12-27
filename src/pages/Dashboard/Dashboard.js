@@ -8,6 +8,9 @@ import { Outlet, useLocation } from "react-router-dom";
 import { GiSparkles } from 'react-icons/gi';
 
 import { useState } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
@@ -41,7 +44,7 @@ const Dashboard = () => {
   const n = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear();
-
+  const cookies = new Cookies();
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
 
   // ====================>>>>>>>>>>>>>>>Routing Based Content Serving=======================>
@@ -49,7 +52,23 @@ const Dashboard = () => {
   let path = location.pathname;
 
   // ====================>>>>>>>>>>>>>>>Routing Based Content Serving=======================>
+  // http://localhost:3001/login
+  const fetchuser=async()=>{
+    const authToken = cookies.get("TOKEN");
+    const res = await axios.get("http://localhost:3001/dashboard",{
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        withCredentials: true,
+      }
+    })
+    return res
+  }
 
+  useEffect(() => {
+    fetchuser()
+  }, [])
+  
+  
   return (
     <div className="container-fluid gx-0 d-flex h-100">
       {/* //sidebar */}

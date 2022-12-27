@@ -10,7 +10,9 @@ import Progress from "./pages/Dashboard/Progress/Progress";
 import Profile from "./pages/Dashboard/Profile/Profile";
 import NotFound from "./pages/PageNotFound/NotFound";
 import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
-import ProtectedRoute from "./routes/ProtectedRoute";
+// import ProtectedRoute from "./routes/ProtectedRoute";
+import { Navigate, useLocation } from "react-router-dom"
+import { useSelector } from "react-redux";
 
 
 function App() {
@@ -43,6 +45,15 @@ function App() {
       </BrowserRouter>
     </div>
   );
+}
+
+const ProtectedRoute=({children})=>{
+  const{isAuth}=useSelector((state)=>state.auth)
+  console.log(isAuth)
+  let location=useLocation()
+  return(
+   isAuth?(children):(<Navigate to="/" state={{from:location}} replace/>)
+  )
 }
 
 export default App;
