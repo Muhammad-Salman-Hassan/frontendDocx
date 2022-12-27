@@ -11,7 +11,7 @@ import Profile from "./pages/Dashboard/Profile/Profile";
 import NotFound from "./pages/PageNotFound/NotFound";
 import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Welcome from "./pages/Dashboard/MainInterface/Welcome";
+
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            {/* <Route path="welcome" element={<Welcome />} /> */}
+            
             <Route path="verification" element={<Verification />} />
             <Route path="progress" element={<Progress />} />
             <Route path="profile" element={<Profile />} />

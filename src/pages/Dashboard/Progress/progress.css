@@ -1,5 +1,8 @@
-.heading{
+.progress_heading{
     font-size: 2rem;
     font-weight: bold;
-    color: #01411C;
+    color: white;
+}
+.progress_card{
+    background-color: black;
 }

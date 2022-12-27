@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AiFillHome } from "react-icons/ai";
 import { GiProgression } from "react-icons/gi";
 import { IoDocuments } from "react-icons/io5";
+import { ImProfile } from "react-icons/im";
 import styles from "./Sidebar.module.css";
 
 import fuuastlogo from "../../images/fuusat.png";
@@ -70,6 +71,20 @@ const Sidebar = () => {
               </i>
             </Link>
           </li>
+          <li>
+            <Link
+              to="profile"
+              class="nav-link py-3 border-bottom rounded-0"
+              title="Your Profile"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+            >
+              <i>
+                <ImProfile className={`${styles.navicon}`} />
+              </i>
+            </Link>
+          </li>
+          
         </ul>
         <div class="dropdown border-top">
           <Link
@@ -87,11 +102,7 @@ const Sidebar = () => {
             />
           </Link>
           <ul class="dropdown-menu text-small shadow">
-            <li>
-              <Link class="dropdown-item" to="profile">
-                Profile
-              </Link>
-            </li>
+            
 
             <li>
               <Link class="dropdown-item" to="#">
