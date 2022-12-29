@@ -1,9 +1,15 @@
-import React from "react";
+// import { elements } from "chart.js";
+import React, { useEffect } from "react";
+
 import "./Profile.css"
-const Profile = () => {
+const Profile = ({user}) => {
+  
+   console.log(user)
+    
   return (
     <div class="container emp-profile ">
             <form method="post">
+                {/* s */}
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">

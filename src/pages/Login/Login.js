@@ -26,8 +26,8 @@ const Login = () => {
 
     try {
       const res = await axios.post("http://localhost:3001/login", obj);
-      console.log(res)
-       
+      // console.log(res.data.accessToken)
+      cookies.set("accessToken",res.data.accessToken);
         const token = cookies.get("accessToken");
        if(res.data.error){
         toast.error(res.data.error,{

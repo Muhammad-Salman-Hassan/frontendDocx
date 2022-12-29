@@ -49,6 +49,7 @@ function App() {
 
 const ProtectedRoute=({children})=>{
   const{isAuth}=useSelector((state)=>state.auth)
+  // const isAuth=true
   console.log(isAuth)
   let location=useLocation()
   return(

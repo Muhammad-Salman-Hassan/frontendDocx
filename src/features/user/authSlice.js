@@ -1,7 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  //   user:null,
+  user: {
+    cnic: "",
+    createdAt: "",
+    email: "",
+    id: null,
+    name: "",
+    password: "",
+    tokens: null,
+    updatedAt: "",
+  },
   isAuth: false,
 };
 
@@ -10,11 +19,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action) => {
-      //   const {user}=action.payload
+      const { user } = action.payload;
 
-      //   state.user=user
+      state.user = user;
       // const {isAuth}=action.payload
-      state.isAuth = action.payload;
+      state.isAuth = true;
     },
   },
 });

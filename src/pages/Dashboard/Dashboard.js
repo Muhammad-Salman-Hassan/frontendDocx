@@ -5,12 +5,14 @@ import "./dashboard.css";
 import { Card } from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
-import { GiSparkles } from 'react-icons/gi';
+import { GiSparkles } from "react-icons/gi";
 
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../features/user/authSlice";
 
 const Dashboard = () => {
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
@@ -53,22 +55,33 @@ const Dashboard = () => {
 
   // ====================>>>>>>>>>>>>>>>Routing Based Content Serving=======================>
   // http://localhost:3001/login
-  const fetchuser=async()=>{
-    const authToken = cookies.get("TOKEN");
-    const res = await axios.get("http://localhost:3001/dashboard",{
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        withCredentials: true,
-      }
-    })
-    return res
-  }
 
+  // ====================>>>>.Fetching user Information>>>>>>>>>>>>>>>>>>>
+  const [user, setuser] = useState([]);
+  const dispatch=useDispatch()
+  const fetchuser = async () => {
+    const token = cookies.get("accessToken");
+
+    const response = await axios.get("http://localhost:3001/dashboard", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+
+        credentials: "include",
+      },
+    });
+
+    const data = response.data.singleuser;
+    //  console.log(data)
+    setuser([data]);
+
+    dispatch(setAuth({user}))
+  };
+
+  // console.log(data);
   useEffect(() => {
-    fetchuser()
-  }, [])
-  
-  
+    fetchuser();
+  }, []);
+
   return (
     <div className="container-fluid gx-0 d-flex h-100">
       {/* //sidebar */}
@@ -91,7 +104,11 @@ const Dashboard = () => {
                     {year}
                   </h5>
                   <h2 className="greeting">
-                    Good {time < 12 ? "Evening": "Morning"}  Name <GiSparkles/>
+                    Good {time < 12 ? "Evening" : "Morning"}{" "}
+                    {user.map((element) => {
+                      return element.name;
+                    })}
+                    <GiSparkles />
                   </h2>
                   <p className="instruction_para">
                     You Can Now Upload Documents For Verification
@@ -101,7 +118,7 @@ const Dashboard = () => {
             </div>
           </div>
         ) : (
-          <Outlet />
+          <Outlet user={user}/>
         )}
       </div>
     </div>
