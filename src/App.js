@@ -13,6 +13,7 @@ import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
 // import ProtectedRoute from "./routes/ProtectedRoute";
 import { Navigate, useLocation } from "react-router-dom"
 import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 
 
 function App() {
@@ -48,7 +49,10 @@ function App() {
 }
 
 const ProtectedRoute=({children})=>{
-  const{isAuth}=useSelector((state)=>state.auth)
+  const cookies = new Cookies();
+  const token = cookies.get("accessToken");
+  
+  let isAuth=token===undefined?false:true
   // const isAuth=true
   console.log(isAuth)
   let location=useLocation()
