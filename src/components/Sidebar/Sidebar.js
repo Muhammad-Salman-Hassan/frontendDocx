@@ -1,16 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiFillHome } from "react-icons/ai";
 import { GiProgression } from "react-icons/gi";
 import { IoDocuments } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
 import styles from "./Sidebar.module.css";
+import { toast, ToastContainer ,cssTransition} from "react-toastify";
 
 import fuuastlogo from "../../images/fuusat.png";
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 const Sidebar = () => {
+  const navigate=useNavigate()
+  const cookies= new Cookies()
+  const token = cookies.get("accessToken");
+  const signout=async()=>{
+    try {
+      const res = await axios.get("http://localhost:3001/logout", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+  
+          credentials: "include",
+        }});
+      if(res.status===200){
+        cookies.remove('accessToken', { path: '/' });
+        toast.success("You Logout",{
+          position: toast.POSITION.TOP_CENTER,
+        })
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+        
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
   return (
     <div class="d-flex flex-column flex-shrink-0  sidebar">
-        
+        <ToastContainer/>
         <Link
           to="/"
           class="d-block p-3 link-dark text-decoration-none"
@@ -105,9 +134,9 @@ const Sidebar = () => {
             
 
             <li>
-              <Link class="dropdown-item" to="#">
+              <button class="dropdown-item" onClick={signout}>
                 Sign out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
