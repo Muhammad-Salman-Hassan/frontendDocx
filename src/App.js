@@ -12,8 +12,9 @@ import NotFound from "./pages/PageNotFound/NotFound";
 import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
 // import ProtectedRoute from "./routes/ProtectedRoute";
 import { Navigate, useLocation } from "react-router-dom"
-import { useSelector } from "react-redux";
+
 import Cookies from "universal-cookie";
+import CompleteProfile from "./pages/CompleteProfile/CompleteProfile";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<CompleteProfile />} />
           <Route path="/forgetpassword" element={<Forgetpassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
