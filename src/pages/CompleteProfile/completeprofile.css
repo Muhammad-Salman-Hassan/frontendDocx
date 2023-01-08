@@ -20,4 +20,25 @@
     cursor: pointer;
     display: block;
   }
-  
+  .registerbtn{
+   background-color: #01411C;
+    color: white;
+}
+.link{
+  color: #01411C;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form_card{
+  background-color: rgb(255, 255, 255);
+}
+.profile_main_wrapper{
+  background-color: #ebebeb;
+}
+@media (max-width: 766px){
+  .inputform{
+    margin-bottom: 10px;
+  }
+}
