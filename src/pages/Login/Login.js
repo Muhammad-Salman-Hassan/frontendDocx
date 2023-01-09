@@ -42,7 +42,7 @@ const Login = () => {
         }
       
         setTimeout(() => {
-          navigate("/userdashboard");
+          navigate("/profile");
         }, 3000);
        }
     } catch (e) {

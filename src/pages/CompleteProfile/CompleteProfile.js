@@ -1,23 +1,33 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./completeprofile.css";
 import InputMask from "react-input-mask";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import avatar from "../../images/avatar.png"
+import axios from "axios";
+import { toast, ToastContainer ,cssTransition} from "react-toastify";
 
 const CompleteProfile = () => {
-  const [father, setfather] = useState("")
+  const [fathername, setfathername] = useState("")
   const [fullname, setfullname] = useState("")
   const [rollno, setrollno] = useState("")
-  const [enrollment, setenrollment] = useState("")
+  const [ enrolmentno, setenrolmentno] = useState("")
   const [phone, setphone] = useState("")
   const [file, setfile] = useState(avatar)
-  const [departmen, setdepartmen] = useState("")
-  const [year, setyear] = useState("")
-  const [libid, setlibid] = useState("")
+  const [department, setdepartment] = useState("")
+  const [passingyear, setpassingyear] = useState("")
+  const [libraryid, setlibraryid] = useState("")
+  const [profilepic, setprofilepic] = useState(null)
+  const navigate=useNavigate()
+  // toast css============================================>
+  const bounce = cssTransition({
+    enter: "animate__animated animate__bounceIn",
+    exit: "animate__animated animate__bounceOut"
+  });
 
   const selectfile=(event)=>{
     if (event.target.files && event.target.files[0]) {
+      setprofilepic(event.target.files[0])
       let reader = new FileReader();
       reader.onload = (e) => {
         setfile({image: e.target.result});
@@ -25,24 +35,54 @@ const CompleteProfile = () => {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-  console.log(father,file.image)
+
+
+  const submit=async(e)=>{
+    e.preventDefault()
+
+    let obj={fathername,rollno, enrolmentno,phone,department,passingyear,libraryid,fullname,profilepic}
+    
+    console.log(obj)
+    try {
+      const res = await axios.post("http://localhost:3001/profile", obj,{headers: { "Content-Type": "multipart/form-data" },});
+      if (res.status === 200) {
+        toast.dark("Profile Created SuccesFully ! You Will be Redirected to Dashboard Soon", {
+          position: toast.POSITION.TOP_CENTER,
+          transition: bounce
+
+        });
+        setTimeout(() => {
+          navigate("/userdashboard");
+        }, 3000);
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+  console.log(profilepic,file)
   return (
     <div className="continer-fluid h-100 d-flex justify-content-center align-items-center profile_main_wrapper">
+      <ToastContainer/>
       <div class="container rounded p-5 form_card">
         <div class="alert alert-warning" role="alert">
           Please Complete Your Profile for Verfication Process !
         </div>
-        <form class="row">
+        <form class="row" onSubmit={submit}>
           <div class="col-md-4 border-right">
             <div class="d-flex flex-column align-items-center  justify-content-center  p-3 py-5">
+              <div className="profile_image_wrapper">
               <img
-                class="mt-5 mb-5 rounded-circle"
+                class=""
                 src={file.image||file}
-                width="90"
+                
               />
+              </div>
+              
 
               <span class="file-input btn  btn-file">
-                Browse Image&hellip; <input type="file"  onChange={selectfile}/>
+                Browse Image&hellip; <input type="file"  onChange={selectfile} required/>
               </span>
               <div class="alert alert-info mt-3" role="alert">
                 Please Upload Your Profile with size 240 X 240 px !
@@ -78,10 +118,10 @@ const CompleteProfile = () => {
                   <input
                     type="text"
                     class="form-control inputform"
-                    placeholder="Father Name"
+                    placeholder="fathername Name"
                     required
-                    onChange={(e)=>{setfather(e.target.value)}}
-                    value={father}
+                    onChange={(e)=>{setfathername(e.target.value)}}
+                    value={fathername}
                   />
                 </div>
               </div>
@@ -101,10 +141,10 @@ const CompleteProfile = () => {
                     type="text"
                     class="form-control inputform"
                     required
-                    placeholder="Department Name"
+                    placeholder="departmentt Name"
                     maxlength="15"
-                    onChange={(e)=>{setdepartmen(e.target.value)}}
-                    value={departmen}
+                    onChange={(e)=>{setdepartment(e.target.value)}}
+                    value={department}
                   />
                 </div>
               </div>
@@ -116,20 +156,20 @@ const CompleteProfile = () => {
                     max="2022"
                     step="1"
                     class="form-control inputform"
-                    placeholder="Passing Year Eg.(2015)"
+                    placeholder="Passing passingyear Eg.(2015)"
                     required
-                    onChange={(e)=>{setyear(e.target.value)}}
-                    value={year}
+                    onChange={(e)=>{setpassingyear(e.target.value)}}
+                    value={passingyear}
                   />
                 </div>
                 <div class="col-md-6">
                   <input
                     type="text"
                     class="form-control inputform"
-                    placeholder="Enrollment Number"
+                    placeholder=" enrolmentno Number"
                     required
-                    onChange={(e)=>{setenrollment(e.target.value)}}
-                    value={enrollment}
+                    onChange={(e)=>{setenrolmentno(e.target.value)}}
+                    value={ enrolmentno}
                   />
                 </div>
               </div>
@@ -150,8 +190,8 @@ const CompleteProfile = () => {
                     type="text"
                     class="form-control inputform"
                     placeholder="Library Id"
-                    onChange={(e)=>{setlibid(e.target.value)}}
-                    value={libid}
+                    onChange={(e)=>{setlibraryid(e.target.value)}}
+                    value={libraryid}
                   />
                 </div>
               </div>
