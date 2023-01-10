@@ -11,11 +11,10 @@ import Profile from "./pages/Dashboard/Profile/Profile";
 import NotFound from "./pages/PageNotFound/NotFound";
 import Forgetpassword from "./pages/ForgetPassword/Forgetpassword";
 // import ProtectedRoute from "./routes/ProtectedRoute";
-import { Navigate, useLocation } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 import CompleteProfile from "./pages/CompleteProfile/CompleteProfile";
-
 
 function App() {
   return (
@@ -37,10 +36,16 @@ function App() {
               </ProtectedRoute>
             }
           >
-            
             <Route path="verification" element={<Verification />} />
             <Route path="progress" element={<Progress />} />
-            <Route path="profile" element={<Profile />} />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           <Route path="*" element={<NotFound />} />
@@ -50,17 +55,19 @@ function App() {
   );
 }
 
-const ProtectedRoute=({children})=>{
+const ProtectedRoute = ({ children }) => {
   const cookies = new Cookies();
   const token = cookies.get("accessToken");
-  
-  let isAuth=token===undefined?false:true
+
+  let isAuth = !token ? false : true;
   // const isAuth=true
-  console.log(isAuth)
-  let location=useLocation()
-  return(
-   isAuth?(children):(<Navigate to="/" state={{from:location}} replace/>)
-  )
-}
+  console.log(isAuth);
+  let location = useLocation();
+  return isAuth ? (
+    children
+  ) : (
+    <Navigate to="/" state={{ from: location }} replace />
+  );
+};
 
 export default App;
