@@ -10,7 +10,8 @@ import { toast, ToastContainer ,cssTransition} from "react-toastify";
 import fuuastlogo from "../../images/fuusat.png";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-const Sidebar = () => {
+const Sidebar = (props) => {
+  let user_img=props.user.map((el)=>el.UserProfile.imgurl)
   const navigate=useNavigate()
   const cookies= new Cookies()
   const token = cookies.get("accessToken");
@@ -25,7 +26,7 @@ const Sidebar = () => {
       if(res.status===200){
         cookies.remove('accessToken', { path: '/' });
         toast.success("You Logout",{
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION.BOTTOM_LEFT,
         })
         setTimeout(() => {
           navigate("/login");
@@ -118,12 +119,12 @@ const Sidebar = () => {
         <div class="dropdown border-top">
           <Link
             to="#"
-            class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+            class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
             <img
-              src="https://github.com/mdo.png"
+              src={user_img}
               alt="mdo"
               width="24"
               height="24"

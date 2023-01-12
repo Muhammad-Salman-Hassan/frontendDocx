@@ -76,7 +76,7 @@ const Dashboard = () => {
 
     dispatch(setAuth({ user }));
   };
-  console.log(user);
+  // console.log(user);
 
   // console.log(data);
   useEffect(() => {
@@ -84,9 +84,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container-fluid gx-0 d-flex h-100">
+    <div className="container-fluid gx-0 d-flex h-100 dashboardbg">
       {/* //sidebar */}
-      <Sidebar />
+      <Sidebar user={user}/>
       {/* //main */}
       <div className={`container-fluid  gx-0 ${styles.main} pt-4`}>
         {path === "/userdashboard" ? (
@@ -109,7 +109,7 @@ const Dashboard = () => {
                     {user.map((element) => {
                       return element.name;
                     })}
-                    <GiSparkles />
+                    {/* <GiSparkles /> */}
                   </h2>
                   <p className="instruction_para">
                     You Can Now Upload Documents For Verification

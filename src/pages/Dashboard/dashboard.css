@@ -8,7 +8,17 @@
   .sidebar{
     width: 4.5rem;
     /* height: 100vh; */
-    background-color: #000000;
+    backdrop-filter: blur(10px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(10%);
+    background-color: rgba(15, 60, 128, 0.199);
+    /* border-radius: 12px; */
+    border: 0.5px solid rgba(255, 255, 255, 0.096);
+}
+.dashboardbg{
+background: url(/src/images/bg.png);
+background-position: center center;
+background-repeat: no-repeat;
+background-size: 100% 100%;
 }
   
   .dropdown-toggle { outline: 0; }
@@ -65,13 +75,21 @@
   
   /* ////////////greeting */
   .greeting_card{
-    background-color: black;
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    background-color: #01411c46;
+    border-radius: 12px;
+    border: 0.5px solid rgba(255, 255, 255, 0.096);
+    font-family: 'Jost', sans-serif;
+
     
   }
   .greeting{
     color: white;
     font-size: 2.5rem;
-    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    letter-spacing: 2px;
   }
   .instruction_para{
     color: white;
