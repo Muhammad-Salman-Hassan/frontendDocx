@@ -105,7 +105,7 @@ const CompleteProfile = () => {
 
    
   }
-  console.log(user.UserProfile);
+  console.log(user);
 
   
 

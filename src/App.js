@@ -47,7 +47,7 @@ function App() {
               }
             />
           </Route>
-
+          {/* <Route path="reset-password/id/token" element={<NotFound />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

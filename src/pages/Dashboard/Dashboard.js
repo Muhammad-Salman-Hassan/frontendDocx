@@ -58,15 +58,15 @@ const Dashboard = () => {
 
   // ====================>>>>.Fetching user Information>>>>>>>>>>>>>>>>>>>
   const [user, setuser] = useState([]);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const fetchuser = async () => {
     const token = cookies.get("accessToken");
-
+    console.log(token);
     const response = await axios.get("http://localhost:3001/dashboard", {
       headers: {
         Authorization: `Bearer ${token}`,
 
-        credentials: "include",
+        // credentials: "include",
       },
     });
 
@@ -74,8 +74,9 @@ const Dashboard = () => {
     //  console.log(data)
     setuser([data]);
 
-    dispatch(setAuth({user}))
+    dispatch(setAuth({ user }));
   };
+  console.log(user);
 
   // console.log(data);
   useEffect(() => {
@@ -118,7 +119,7 @@ const Dashboard = () => {
             </div>
           </div>
         ) : (
-          <Outlet user={user}/>
+          <Outlet user={user} />
         )}
       </div>
     </div>
