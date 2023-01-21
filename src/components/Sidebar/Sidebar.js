@@ -11,20 +11,17 @@ import fuuastlogo from "../../images/fuusat.png";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 const Sidebar = (props) => {
+  console.log(props)
   let user_img=props.user.map((el)=>el.UserProfile.imgurl)
   const navigate=useNavigate()
   const cookies= new Cookies()
   const token = cookies.get("accessToken");
   const signout=async()=>{
     try {
-      const res = await axios.get("http://localhost:3001/logout", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-  
-          credentials: "include",
-        }});
+      const res = await axios.get("http://localhost:3001/logout",{withCredentials: true});
       if(res.status===200){
-        cookies.remove('accessToken', { path: '/' });
+        cookies.set("isAuth",res.data.isAuth)
+        localStorage.setItem("isAuth",res.data.isAuth)
         toast.success("You Logout",{
           position: toast.POSITION.BOTTOM_LEFT,
         })

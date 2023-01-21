@@ -28,7 +28,8 @@ const CompleteProfile = () => {
     enter: "animate__animated animate__bounceIn",
     exit: "animate__animated animate__bounceOut",
   });
-
+  let cookiess=document.cookie
+  console.log(cookiess)
   const selectfile = (event) => {
     if (event.target.files && event.target.files[0]) {
       setprofilepic(event.target.files[0]);
@@ -53,16 +54,18 @@ const CompleteProfile = () => {
     data.append("libraryid", libraryid);
     data.append("fullname", fullname);
     data.append("profilepic", profilepic);
-
+    const token = cookies.get("accessToken")
+    console.log(token)
     try {
-      const token = cookies.get("accessToken");
+      
       const res = await axios.post("http://localhost:3001/profile", data, {
-        headers: {
-          "Content-Type": " multipart/form-data",
-          Authorization: `Bearer ${token}`,
+        withCredentials:true
+        // headers: {
+        //   "Content-Type": " multipart/form-data",
+        //   Authorization: `Bearer ${token}`,
 
-          credentials: "include",
-        },
+        //   credentials: "include",
+        // },
       });
       if (res.status === 200) {
         toast.dark(
@@ -82,14 +85,8 @@ const CompleteProfile = () => {
   };
 
   const get_user = async () => {
-    const token = cookies.get("accessToken");
-    const res = await axios.get("http://localhost:3001/userprofile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-
-        // credentials: "include",
-      },
-    });
+    // const token = cookies.get("accessToken");
+    const res = await axios.get("http://localhost:3001/userprofile",{headers:{"Content-Type ":"application/json"},withCredentials:true});
     setuser(res.data);
   };
 
@@ -98,10 +95,13 @@ const CompleteProfile = () => {
   }, []);
 
   if (user.UserProfile) {
+    toast.warn("You Already Created Your",{
+      position: toast.POSITION.BOTTOM_LEFT,
+    })
     
     setTimeout(() => {
       navigate("/userdashboard");
-    }, 0);
+    }, 3000);
 
    
   }

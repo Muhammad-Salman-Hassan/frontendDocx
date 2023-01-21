@@ -15,6 +15,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 import CompleteProfile from "./pages/CompleteProfile/CompleteProfile";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<CompleteProfile />} />
+          <Route path="/userprofile" element={<CompleteProfile />} />
           <Route path="/forgetpassword" element={<Forgetpassword />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
           <Route
@@ -47,7 +49,7 @@ function App() {
               }
             />
           </Route>
-          {/* <Route path="reset-password/id/token" element={<NotFound />} /> */}
+     
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
@@ -57,11 +59,11 @@ function App() {
 
 const ProtectedRoute = ({ children }) => {
   const cookies = new Cookies();
-  const token = cookies.get("accessToken");
-
-  let isAuth = !token ? false : true;
-  // const isAuth=true
-  console.log(isAuth);
+  const isAuth = cookies.get("isAuth");
+// console.log(access)
+//   let isAuth = !access ? false : true;
+//   // const isAuth=true
+//   console.log(isAuth);
   let location = useLocation();
   return isAuth ? (
     children

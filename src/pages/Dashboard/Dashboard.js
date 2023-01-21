@@ -13,11 +13,14 @@ import Cookies from "universal-cookie";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../features/user/authSlice";
-
+var lastCookie = document.cookie;
+console.log(lastCookie)
 const Dashboard = () => {
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
   const [time] = useState(new Date().getHours());
   const [date] = useState(new Date());
+  
+
   const months = {
     0: "January",
     1: "February",
@@ -59,29 +62,42 @@ const Dashboard = () => {
   // ====================>>>>.Fetching user Information>>>>>>>>>>>>>>>>>>>
   const [user, setuser] = useState([]);
   const dispatch = useDispatch();
+  const token = cookies.get("accessToken");
+  let axiostoken=axios.CancelToken.source()
+  console.log(user)
   const fetchuser = async () => {
-    const token = cookies.get("accessToken");
-    console.log(token);
+    
+    
+    // console.log(token);
+  try {
     const response = await axios.get("http://localhost:3001/dashboard", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-
-        // credentials: "include",
-      },
-    });
+     withCredentials:true
+    },{axiostoken:axiostoken.token});
 
     const data = response.data.singleuser;
-    //  console.log(data)
+   
     setuser([data]);
 
     dispatch(setAuth({ user }));
+  } catch (error) {
+    if(axios.isCancel(error)){
+      console.log("canceled")
+    }
+  }
   };
-  // console.log(user);
-
-  // console.log(data);
+ 
   useEffect(() => {
-    fetchuser();
-  }, []);
+    if(token!==null){
+      fetchuser();
+    }else{
+      console.log("error")
+    }
+    
+// ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
+    return ()=>{
+      axiostoken.cancel()
+    }
+  }, [token]);
 
   return (
     <div className="container-fluid gx-0 d-flex h-100 dashboardbg">
