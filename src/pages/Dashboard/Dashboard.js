@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./dashboard.module.css";
 
 import "./dashboard.css";
-import { Card } from "@mui/material";
+
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import { GiSparkles } from "react-icons/gi";
@@ -13,13 +13,14 @@ import Cookies from "universal-cookie";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../../features/user/authSlice";
+import Card from "../../components/Card/Card";
+import Clearance from "../../components/ClearenceForm/Clearance";
 var lastCookie = document.cookie;
-console.log(lastCookie)
+console.log(lastCookie);
 const Dashboard = () => {
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
   const [time] = useState(new Date().getHours());
   const [date] = useState(new Date());
-  
 
   const months = {
     0: "January",
@@ -63,46 +64,48 @@ const Dashboard = () => {
   const [user, setuser] = useState([]);
   const dispatch = useDispatch();
   const token = cookies.get("accessToken");
-  let axiostoken=axios.CancelToken.source()
-  console.log(user)
+  let axiostoken = axios.CancelToken.source();
+  console.log(user);
   const fetchuser = async () => {
-    
-    
     // console.log(token);
-  try {
-    const response = await axios.get("http://localhost:3001/dashboard", {
-     withCredentials:true
-    },{axiostoken:axiostoken.token});
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/dashboard",
+        {
+          withCredentials: true,
+        },
+        { axiostoken: axiostoken.token }
+      );
 
-    const data = response.data.singleuser;
-   
-    setuser([data]);
+      const data = response.data.singleuser;
 
-    dispatch(setAuth({ user }));
-  } catch (error) {
-    if(axios.isCancel(error)){
-      console.log("canceled")
+      setuser([data]);
+
+      dispatch(setAuth({ user }));
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log("canceled");
+      }
     }
-  }
   };
- 
+
   useEffect(() => {
-    if(token!==null){
+    if (token !== null) {
       fetchuser();
-    }else{
-      console.log("error")
+    } else {
+      console.log("error");
     }
-    
-// ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
-    return ()=>{
-      axiostoken.cancel()
-    }
+
+    // ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
+    return () => {
+      axiostoken.cancel();
+    };
   }, [token]);
 
   return (
     <div className="container-fluid gx-0 d-flex h-100 dashboardbg">
       {/* //sidebar */}
-      <Sidebar user={user}/>
+      <Sidebar user={user} />
       {/* //main */}
       <div className={`container-fluid  gx-0 ${styles.main} pt-4`}>
         {path === "/userdashboard" ? (
@@ -130,6 +133,18 @@ const Dashboard = () => {
                   <p className="instruction_para">
                     You Can Now Upload Documents For Verification
                   </p>
+                </div>
+              </div>
+            </div>
+            <div className="container-fluid gx-0 mt-4 rounded ">
+              <div className="row">
+                <div className="application_form col-md-8 col-sm-12 col-lg-8 ">
+                  <Clearance user={user}/>
+                </div>
+                <div className="actions col-md-4 col-sm-12 col-lg-4 ">
+                  <button class="btn bg-light w-100" disabled type="button">
+                    Apply For Degree
+                  </button>
                 </div>
               </div>
             </div>
