@@ -60,7 +60,7 @@ function App() {
 const ProtectedRoute = ({ children }) => {
   const cookies = new Cookies();
   const isAuth = cookies.get("isAuth");
-// console.log(access)
+console.log(isAuth,"isAuth")
 //   let isAuth = !access ? false : true;
 //   // const isAuth=true
 //   console.log(isAuth);

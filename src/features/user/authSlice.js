@@ -10,6 +10,7 @@ const initialState = {
     password: "",
     tokens: null,
     updatedAt: "",
+    UserProfile:{}
   },
   isAuth: false,
 };
@@ -19,9 +20,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth: (state, action) => {
-      const { user } = action.payload;
+      // const { user } = ;
 
-      state.user = user;
+      state.user = action.payload;
       // const {isAuth}=action.payload
       state.isAuth = true;
     },

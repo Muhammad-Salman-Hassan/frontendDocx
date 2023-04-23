@@ -31,7 +31,7 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:3001/login", obj,{headers: { 'Content-Type': 'application/json' },withCredentials: true});
      
-        console.log(res.data)
+        console.log("LOGIN",res.data)
         cookies.set("isAuth",res.data.isAuth)
         localStorage.setItem("isAuth",res.data.isAuth)
        if(res.data.error){

@@ -63,7 +63,8 @@ const Dashboard = () => {
   // ====================>>>>.Fetching user Information>>>>>>>>>>>>>>>>>>>
   const [user, setuser] = useState([]);
   const dispatch = useDispatch();
-  const token = cookies.get("accessToken");
+  const token = cookies.get("isAuth");
+  console.log("token",token)
   let axiostoken = axios.CancelToken.source();
   console.log(user);
   const fetchuser = async () => {
@@ -81,26 +82,32 @@ const Dashboard = () => {
 
       setuser([data]);
 
-      dispatch(setAuth({ user }));
+      
     } catch (error) {
-      if (axios.isCancel(error)) {
+      // if (axios.isCancel(error)) {
         console.log("canceled");
-      }
+      // }
     }
   };
 
-  useEffect(() => {
-    if (token !== null) {
-      fetchuser();
-    } else {
-      console.log("error");
-    }
+  // useEffect(() => {
+  //   if (token !== undefined) {
+      
+  //     fetchuser();
+  //   } else {
+  //     console.log("error");
+  //   }
 
-    // ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
-    return () => {
-      axiostoken.cancel();
-    };
-  }, [token]);
+  //   // ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
+  //   return () => {
+  //     axiostoken.cancel();
+  //   };
+  // }, [token]);
+
+  useEffect(() => {
+    fetchuser();
+    dispatch(setAuth(user));
+  }, []);
 
   return (
     <div className="container-fluid gx-0 d-flex h-100 dashboardbg">
