@@ -45,9 +45,14 @@ const Login = () => {
         if(token){
           dispatch(setAuth(true))
         }
-      
+        
         setTimeout(() => {
-          navigate("/userprofile");
+          if(res.data.role==="user"){
+            navigate("/userprofile");
+          }else{
+            navigate("/admin");
+          }
+          
         }, 3000);
        }
     } catch (e) {
