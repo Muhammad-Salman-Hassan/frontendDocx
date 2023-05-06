@@ -16,6 +16,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import Cookies from "universal-cookie";
 import CompleteProfile from "./pages/CompleteProfile/CompleteProfile";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import UserApplications from "./pages/UserApplications/UserApplications";
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
           <Route path="/forgetpassword" element={<Forgetpassword />} />
           <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<Admin />} >
+          
+          </Route>
+          <Route path="/admin/:id" element={<UserApplications/>} />
           <Route
             path="/userdashboard"
             element={

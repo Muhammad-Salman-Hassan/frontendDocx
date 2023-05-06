@@ -81,7 +81,7 @@ const Dashboard = () => {
       const data = response.data.singleuser;
 
       setuser([data]);
-
+      dispatch(setAuth(data));
       
     } catch (error) {
       // if (axios.isCancel(error)) {
@@ -106,7 +106,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchuser();
-    dispatch(setAuth(user));
+    
   }, []);
 
   return (
