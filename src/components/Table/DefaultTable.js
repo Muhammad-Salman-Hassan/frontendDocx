@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { HandleStatus } from '../../Service/DefaultFunctions';
 
-function Table() {
+function Table({data}) {
   const navigate=useNavigate()
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const data = [
-    { id: 1, name: 'John Doe', age: 25, email: 'johndoe@example.com' ,phone:"1212343454654"},
-    { id: 2, name: 'Jane Smith', age: 30, email: 'janesmith@example.com' ,phone:"1212343454654"},
-    { id: 3, name: 'Bob Johnson', age: 40, email: 'bobjohnson@example.com' ,phone:"1212343454654"},
-    { id: 4, name: 'Mary Brown', age: 35, email: 'marybrown@example.com',phone:"1212343454654" },{ id: 1, name: 'John Doe', age: 25, email: 'johndoe@example.com' ,phone:"1212343454654"},
-    { id: 2, name: 'Jane Smith', age: 30, email: 'janesmith@example.com' ,phone:"1212343454654"},
-    { id: 3, name: 'Bob Johnson', age: 40, email: 'bobjohnson@example.com' ,phone:"1212343454654"},
-    { id: 4, name: 'Mary Brown', age: 35, email: 'marybrown@example.com',phone:"1212343454654" },
-  ];
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
@@ -22,25 +15,32 @@ function Table() {
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+  
 
   return (
     <div className="table-responsive">
       <table className="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>application Id</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Roll Number</th>
+            <th>Department</th>
+            <th>Passing Year</th>
+            <th>Enrolment Number</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((item) => (
-            <tr key={item.id} onClick={() => navigate(`/admin/${item.id}`)}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.email}</td>
-              <td>{item.phone}</td>
+            <tr key={item.id} onClick={() => navigate(`/admin/${item.applicationId}`)}>
+              <td>{item.applicationId}</td>
+              <td>{item.fullname}</td>
+              <td>{item.rollno}</td>
+              <td>{item.department}</td>
+              <td>{item.passingyear}</td>
+              <td>{item.enrolmentno}</td>
+              <td>{HandleStatus(item.applicationStatus)}</td>
             </tr>
           ))}
         </tbody>

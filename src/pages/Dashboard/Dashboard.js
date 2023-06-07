@@ -15,9 +15,11 @@ import { useDispatch } from "react-redux";
 import { setAuth } from "../../features/user/authSlice";
 import Card from "../../components/Card/Card";
 import Clearance from "../../components/ClearenceForm/Clearance";
+import { GetAllApplications } from "../AdminSlice";
 var lastCookie = document.cookie;
 console.log(lastCookie);
 const Dashboard = () => {
+ 
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
   const [time] = useState(new Date().getHours());
   const [date] = useState(new Date());

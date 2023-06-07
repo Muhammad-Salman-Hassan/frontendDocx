@@ -39,7 +39,7 @@ const Clearance = (props) => {
           <p class="card-text" ref={ref}>
             It is confirmed that {user[0]?.name} son of{" "}
             {user[0]?.UserProfile?.fathername} has no equipments/obligations and
-            no books in the seminar library of
+            no books in the seminar library of 
             {user[0]?.UserProfile?.fathername} department in the morning.
           </p>
           <p class="card-text" ref={ref1}>

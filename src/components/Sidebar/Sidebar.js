@@ -12,10 +12,11 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 const Sidebar = (props) => {
   console.log(props)
-  let user_img=props.user.map((el)=>el.UserProfile.imgurl)
+  let user_img=props?.user.map((el)=>el.UserProfile?.imgurl)
   const navigate=useNavigate()
   const cookies= new Cookies()
   const token = cookies.get("accessToken");
+  console.log("PROPS",props)
   const signout=async()=>{
     try {
       const res = await axios.get("http://localhost:3001/logout",{withCredentials: true});
