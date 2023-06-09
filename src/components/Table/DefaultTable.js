@@ -32,8 +32,10 @@ function Table({data}) {
           </tr>
         </thead>
         <tbody>
+          
           {currentItems.map((item) => (
-            <tr key={item.id} onClick={() => navigate(`/admin/${item.applicationId}`)}>
+            <tr key={item.id} onClick={() => navigate(`/application/${item.applicationId}`)}>
+              {console.log(item.applicationId,"APPLICATION ID")}
               <td>{item.applicationId}</td>
               <td>{item.fullname}</td>
               <td>{item.rollno}</td>

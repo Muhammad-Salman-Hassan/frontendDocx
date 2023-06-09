@@ -33,7 +33,7 @@ function App() {
           <Route path="/admin" element={<Admin />} >
           
           </Route>
-          <Route path="/admin/:id" element={<UserApplications/>} />
+          <Route path="/application/:applicationId" element={<UserApplications/>} />
           <Route
             path="/userdashboard"
             element={

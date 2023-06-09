@@ -6,7 +6,7 @@ import styles from "./Login.module.css";
 import InputMask from "react-input-mask";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { toast, ToastContainer ,cssTransition} from "react-toastify";
+import { toast, ToastContainer, cssTransition } from "react-toastify";
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuth } from "../../features/user/authSlice";
 
@@ -16,45 +16,48 @@ const Login = () => {
   const [password, setpassword] = useState("");
   const [token, settoken] = useState(null)
   // const{isAuth}=useSelector((state)=>state.auth)
-  
+
   const navigate = useNavigate();
   const cookies = new Cookies();
   // const {phone,hash}=useSelector((state)=>state.auth.otp)
-  
-        
-  const dispatch=useDispatch()
+
+
+  const dispatch = useDispatch()
   const onsubmit = async (e) => {
-    const obj={password,cnic}
+    const obj = { password, cnic }
     e.preventDefault();
-    
-    
+
+
     try {
-      const res = await axios.post("http://localhost:3001/login", obj,{headers: { 'Content-Type': 'application/json' },withCredentials: true});
-     
-        console.log("LOGIN",res.data)
-        cookies.set("isAuth",res.data.isAuth)
-        localStorage.setItem("isAuth",res.data.isAuth)
-       if(res.data.error){
-        toast.error(res.data.error,{
+      const res = await axios.post("http://localhost:3001/login", obj, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+
+      console.log("LOGIN", res.data)
+      let user = JSON.stringify(res.data); // Convert object to string
+      
+      localStorage.setItem("user", user);
+      cookies.set("isAuth", res.data.isAuth)
+      localStorage.setItem("isAuth", res.data.isAuth)
+      if (res.data.error) {
+        toast.error(res.data.error, {
           position: toast.POSITION.TOP_CENTER,
         })
-       }else{
-        toast.success("Access Granted",{
+      } else {
+        toast.success("Access Granted", {
           position: toast.POSITION.TOP_CENTER,
         })
-        if(token){
+        if (token) {
           dispatch(setAuth(true))
         }
-        
+
         setTimeout(() => {
-          if(res.data.role==="user"){
+          if (res.data.role === "user") {
             navigate("/userprofile");
-          }else{
+          } else {
             navigate("/admin");
           }
-          
+
         }, 3000);
-       }
+      }
     } catch (e) {
       alert(e);
     }
@@ -62,7 +65,7 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <ToastContainer/>
+      <ToastContainer />
       <Card>
         <h2 className={styles.loginHeading}>Login</h2>
 
