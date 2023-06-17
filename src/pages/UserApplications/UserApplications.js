@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { GetSingleApplication } from '../AdminSlice'
 import Navbar from '../../components/Navbar/Navbar';
+import LightBoxImage from '../../components/LightBox/LightBox'
 
 const UserApplications = () => {
-  const Reducer = useSelector((Reducer) => Reducer);
+  const {Applications} = useSelector((Reducer) => Reducer);
 
   const params = useParams()
   const dispatch = useDispatch()
-  console.log(Reducer, params)
+  console.log(Applications.singleApplication.ApplicationImages)
   useEffect(() => {
     dispatch(GetSingleApplication(params.applicationId))
 
@@ -30,7 +31,7 @@ const UserApplications = () => {
               <label className="form-label" for="form8Example1">
                 Full Name
               </label>
-              <div>Salman</div>
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.UserProfile?.fullname}</div>
             </div>
           </div>
           <div className="col">
@@ -38,7 +39,7 @@ const UserApplications = () => {
               <label className="form-label" for="form8Example2">
                 Phone Number
               </label>
-              <input type="email" id="form8Example2" className="form-control" disabled  />
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.UserProfile?.phone}</div>
             </div>
           </div>
         </div>
@@ -51,7 +52,7 @@ const UserApplications = () => {
               <label className="form-label" for="form8Example3">
                 Father name
               </label>
-              <input type="text" id="form8Example3" className="form-control" disabled />
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.UserProfile?.fathername}</div>
             </div>
           </div>
           <div className="col">
@@ -59,7 +60,7 @@ const UserApplications = () => {
               <label className="form-label" for="form8Example4">
               CNIC Number
               </label>
-              <input type="text" id="form8Example4" className="form-control" disabled />
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.cnic}</div>
             </div>
           </div>
           <div className="col">
@@ -67,22 +68,23 @@ const UserApplications = () => {
               <label className="form-label" for="form8Example5">
                 Roll Number
               </label>
-              <input type="email" id="form8Example5" className="form-control" disabled />
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.UserProfile?.rollno}</div>
             </div>
           </div>
           <div className="col">
             <div className="form-outline">
               <label className="form-label" for="form8Example5">
-                Roll Number
+                Email
               </label>
-              <input type="email" id="form8Example5" className="form-control" disabled />
+              <div className='w-100  h-100 p-2 rounded' style={{backgroundColor:"#EFEFF0"}}>{Applications?.singleApplication?.email}</div>
             </div>
           </div>
         </div>
         <hr />
         <div className="d-flex  justify-content-between align-items-center">
        
-        
+        {/* <CoolLightbox/> */}
+        <LightBoxImage images={Applications?.singleApplication?.ApplicationImages}/>
         </div>
         
       </div>
