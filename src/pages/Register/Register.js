@@ -16,12 +16,13 @@ const bounce = cssTransition({
 });
 
 const Register = () => {
-  const navigate = useNavigate();
-
+  
   const [cnic, setcnic] = useState("");
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const navigate = useNavigate();
+
 
   const register = async (e) => {
     e.preventDefault();

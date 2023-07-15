@@ -4,25 +4,29 @@ import { useParams } from 'react-router-dom'
 import { GetSingleApplication } from '../AdminSlice'
 import Navbar from '../../components/Navbar/Navbar';
 import LightBoxImage from '../../components/LightBox/LightBox'
+import Select from '../../components/Select/Select';
 
 const UserApplications = () => {
   const {Applications} = useSelector((Reducer) => Reducer);
 
   const params = useParams()
   const dispatch = useDispatch()
-  console.log(Applications.singleApplication.ApplicationImages)
+  // console.log(Applications.singleApplication.ApplicationImages)
   useEffect(() => {
     dispatch(GetSingleApplication(params.applicationId))
 
   }, []);
+
   return (
     <>
     <Navbar/>
     <div className="w-100  d-flex justify-content-center align-items-center h-100 flex-column">
       <div className="w-100 h-100 p-4">
+        
         <div className="row">
           <div className="d-flex justify-content-between align-items-center">
             <h3>Personal Information</h3>
+            <Select status={Applications.singleApplication.applicationStatus}/>
           {/* <img alt=""  width="80px" height="80px" className="rounded-circle"/> */}
           </div>
           

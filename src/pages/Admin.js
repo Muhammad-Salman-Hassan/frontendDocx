@@ -6,8 +6,9 @@ import { GetAllApplications } from './AdminSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Admin = () => {
-  const dispatch=useDispatch()
   const {Applications} = useSelector((Reducer) => Reducer);
+  const dispatch=useDispatch()
+  
   console.log("Reducer",Applications)
   useEffect(() => {
     dispatch(GetAllApplications())

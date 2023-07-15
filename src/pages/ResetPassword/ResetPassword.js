@@ -1,18 +1,20 @@
-import axios from "axios";
+
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import { useEffect } from "react";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import "./resetPassword.css";
 
 const ResetPassword = () => {
-  let params = useParams();
   const [eyeToggle, seteyeToggle] = useState(false);
   const [user, setuser] = useState()
   const [state, setState] = React.useState({
     userpassword: "",
     confirmPassword: ""
   })
+  let params = useParams();
+  
 
   let toggleEye = () => {
     seteyeToggle(!eyeToggle);

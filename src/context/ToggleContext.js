@@ -1,8 +1,9 @@
 import React from 'react'
+import { useState } from 'react';
 const ToggleContext=React.createContext()
 
 const ThemeProvider = ({ children }) => {
-    const [toggle, setToggle] = React.useState(true);
+    const [toggle, setToggle] = useState(true);
 
     const toggleFunction = () => {
       setToggle(!toggle);

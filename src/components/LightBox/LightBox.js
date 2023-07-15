@@ -1,52 +1,46 @@
-import React, { useEffect, useRef } from 'react';
-import LightGallery from 'lightgallery';
-import lgZoom from 'lightgallery/plugins/zoom';
-import lgVideo from 'lightgallery/plugins/video';
-
-import 'lightgallery/css/lightgallery.css';
-
+import  { useState } from 'react';
+import "./lightbox.css"
 const LightBoxImage = (props) => {
-  const galleryRef = useRef(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const { images } = props;
+  
 
-  useEffect(() => {
-    const options = {
-      mode: 'lg-fade',
-      plugins: [lgZoom, lgVideo],
-    };
-
-    const lightGalleryInstance = LightGallery(galleryRef.current, options);
-
-    return () => {
-      lightGalleryInstance.destroy();
-    };
-  }, []);
-
-  const openLightbox = (event, imgUrl) => {
-    event.preventDefault(); // Prevent default navigation behavior
-    galleryRef.current.setAttribute('data-lg-share', false); // Disable share button (optional)
-    galleryRef.current.setAttribute('data-src', imgUrl); // Set the image source as the data-src attribute
-    LightGallery(galleryRef.current); // Open LightGallery with the updated data
+  const openLightbox = (index) => {
+    setLightboxOpen(true);
+    setLightboxIndex(index);
   };
 
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxIndex(0);
+  };
+
+  if (!Array.isArray(images) || images.length === 0) {
+    return <p>No data available</p>;
+  }
+  console.log(lightboxOpen)
+
   return (
-    <div ref={galleryRef} >
-      {Array.isArray(images) && images.length > 0 ? (
-        images.map((item) => (
-          <div style={{display:"flex"}}>
+    <div className='d-flex'>
+      {images.map((item, index) => (
+        <div key={item.id} style={{ display: 'flex' ,flexDirection:"column-reverse",justifyContent:"center",alignItems:"center"}}>
           <span>{item.image_type}</span>
-          <a
-            key={item.id}
-            href={item.imgurl}
-            onClick={(e) => openLightbox(e, item.imgurl)}
-            data-sub-html={`<h4>${item.image_type}</h4>`}
-          >
-            <img src={item.imgurl} alt={item.image_type} width="100px" height="100px"/>
+          <a href={item.imgurl} onClick={(e) => {
+            e.preventDefault();
+            openLightbox(index);
+          }}>
+            <img src={item.imgurl} alt={item.image_type} width="100px" height="100px" className='m-2'/>
           </a>
+        </div>
+      ))}
+
+      {lightboxOpen && (
+        <div className="lightbox-overlay" onClick={closeLightbox}>
+          <div className="lightbox-content">
+            <img src={images[lightboxIndex].imgurl} alt={images[lightboxIndex].image_type} />
           </div>
-        ))
-      ) : (
-        <p>No data available</p>
+        </div>
       )}
     </div>
   );
