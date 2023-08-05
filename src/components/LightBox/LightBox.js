@@ -22,7 +22,7 @@ const LightBoxImage = (props) => {
   console.log(lightboxOpen)
 
   return (
-    <div className='d-flex'>
+    <div className='d-flex w-100 flex-wrap' style={{overflow:"hidden"}}>
       {images.map((item, index) => (
         <div key={item.id} style={{ display: 'flex' ,flexDirection:"column-reverse",justifyContent:"center",alignItems:"center"}}>
           <span>{item.image_type}</span>

@@ -4,6 +4,7 @@ import clearence  from '../components/ClearenceForm/Slices'
 import UploadImageSlice from '../components/uploadfile/UploadSlice'
 import Applications from "../pages/AdminSlice"
 import SubmitApplication from "../pages/Dashboard/Verification/SubmitSlice"
+import dashboard from "../pages/Dashboard/DashboardSlice"
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
       clearence,
       UploadImageSlice,
       Applications,
-      SubmitApplication
+      SubmitApplication,
+      dashboard
     //   activate
     },
     middleware: getDefaultMiddleware({

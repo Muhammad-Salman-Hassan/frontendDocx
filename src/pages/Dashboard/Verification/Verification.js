@@ -1,40 +1,41 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import uploadImg from "../../../images/upload.png"
 import { FileInputs } from "../../../components/uploadfile/UploadFile";
-import ImageUploader from "../../../components/FileUploader/FileUpload";
-import { UploadMultipleFile } from "../../../components/uploadfile/UploadSlice";
 import { SubmitApplication } from "./SubmitSlice";
+import VouchersUploader from "./Documents/Vouchers";
+import MarkSheetsUploader from "./Documents/Marksheets";
+
+
 
 
 const Verification = () => {
   const [step, setStep] = useState(0)
   const Reducer = useSelector((auth) => auth)
-  
-  
+
+
   let inputRef = useRef({});
   const dispatch = useDispatch()
-  let  post_obj={
-    "cnic":Reducer.auth.user?.cnic,
-    "rollno":Reducer.auth.user?.UserProfile?.rollno,
-    "fathername":Reducer.auth.user?.UserProfile?.fathername,
-    "fullname":Reducer.auth?.user?.name,
-    "department":Reducer.auth.user?.UserProfile?.department,
-    "passingyear":Reducer.auth.user?.UserProfile?.passingyear,
-    "enrolmentno":Reducer.auth.user?.UserProfile?.enrolmentno
+  let post_obj = {
+    "cnic": Reducer.auth.user?.cnic,
+    "rollno": Reducer.auth.user?.UserProfile?.rollno,
+    "fathername": Reducer.auth.user?.UserProfile?.fathername,
+    "fullname": Reducer.auth?.user?.name,
+    "department": Reducer.auth.user?.UserProfile?.department,
+    "passingyear": Reducer.auth.user?.UserProfile?.passingyear,
+    "enrolmentno": Reducer.auth.user?.UserProfile?.enrolmentno
   }
   const GoForward = () => {
-    setStep(1)
+    setStep(step+1)
   }
-  const submit=()=>{
+  const submit = () => {
     dispatch(SubmitApplication(post_obj))
   }
   console.log(Reducer)
 
   return (
 
-    <div className="w-100  d-flex justify-content-center align-items-center h-100 flex-column">
-      {step == 1 && (
+    <div className="w-100  d-flex justify-content-center align-items-center h-100 flex-column" style={{ overflowY: "scroll" }}>
+      {step == 2 && (
         <div className="w-75 h-100 p-4 card">
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">
@@ -107,12 +108,21 @@ const Verification = () => {
       )}
 
       {step == 0 && (
-        <div className="w-75 h-100 p-4 card">
-          <h5>MarkSheets</h5>
-          <ImageUploader type="DUMMYYYY" title="Select MarkSheets" />
+        <>
+          
+
+          <MarkSheetsUploader/>
 
           <button onClick={GoForward}>Continue</button>
-        </div>
+        </>
+      )}
+
+      {step===1&&(
+        <>
+        <VouchersUploader />
+        <button onClick={GoForward}>Continue</button>
+        </>
+        
       )}
 
     </div>

@@ -1,25 +1,20 @@
 import React from "react";
 import styles from "./dashboard.module.css";
-
 import "./dashboard.css";
-
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
-import { GiSparkles } from "react-icons/gi";
-
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setAuth } from "../../features/user/authSlice";
-import Card from "../../components/Card/Card";
+import { useDispatch, useSelector } from "react-redux";
 import Clearance from "../../components/ClearenceForm/Clearance";
-import { GetAllApplications } from "../AdminSlice";
+import { GetStatus } from "./DashboardSlice";
+import { setAuth } from "../../features/user/authSlice";
 var lastCookie = document.cookie;
 console.log(lastCookie);
 const Dashboard = () => {
- 
+  const Reducer = useSelector((Reducer) => Reducer);
   // ====================>>>>>>>>>>>>>>>User Greeting=======================>
   const [time] = useState(new Date().getHours());
   const [date] = useState(new Date());
@@ -66,11 +61,10 @@ const Dashboard = () => {
   const [user, setuser] = useState([]);
   const dispatch = useDispatch();
   const token = cookies.get("isAuth");
-  console.log("token",token)
   let axiostoken = axios.CancelToken.source();
-  console.log(user);
+  
   const fetchuser = async () => {
-    // console.log(token);
+   
     try {
       const response = await axios.get(
         "http://localhost:3001/dashboard",
@@ -92,22 +86,9 @@ const Dashboard = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (token !== undefined) {
-      
-  //     fetchuser();
-  //   } else {
-  //     console.log("error");
-  //   }
-
-  //   // ============================>>>>>>>>>>>>>>>>>CleanUp Function with axios.CancelToken<<<<<<<<<<<<<<<<<<<<<=====================================
-  //   return () => {
-  //     axiostoken.cancel();
-  //   };
-  // }, [token]);
-
   useEffect(() => {
     fetchuser();
+    dispatch(GetStatus())
     
   }, []);
 
@@ -151,7 +132,7 @@ const Dashboard = () => {
                   <Clearance user={user}/>
                 </div>
                 <div className="actions col-md-4 col-sm-12 col-lg-4 ">
-                  <button class="btn bg-light w-100" disabled type="button">
+                  <button class="btn bg-light w-100" disabled={Reducer.dashboard?.application?.applicationStatus!==1?true:false} type="button" style={{border:"1px solid black"}}>
                     Apply For Degree
                   </button>
                 </div>

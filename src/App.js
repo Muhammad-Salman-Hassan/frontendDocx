@@ -17,6 +17,7 @@ import Cookies from "universal-cookie";
 import CompleteProfile from "./pages/CompleteProfile/CompleteProfile";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import UserApplications from "./pages/UserApplications/UserApplications";
+import AdminForm from "./pages/AddAdmin/AddAdmin";
 
 function App() {
   return (
@@ -30,10 +31,11 @@ function App() {
           <Route path="/forgetpassword" element={<Forgetpassword />} />
           <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<Admin />} >
-          
+          <Route path="/admin" element={<Admin />}>
+            <Route path="addAdmins" element={<AdminForm/>} />
+
           </Route>
-          <Route path="/application/:applicationId" element={<UserApplications/>} />
+          <Route path="/application/:applicationId" element={<UserApplications />} />
           <Route
             path="/userdashboard"
             element={
@@ -53,7 +55,7 @@ function App() {
               }
             />
           </Route>
-     
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
@@ -64,10 +66,10 @@ function App() {
 const ProtectedRoute = ({ children }) => {
   const cookies = new Cookies();
   const isAuth = cookies.get("isAuth");
-console.log(isAuth,"isAuth")
-//   let isAuth = !access ? false : true;
-//   // const isAuth=true
-//   console.log(isAuth);
+  console.log(isAuth, "isAuth")
+  //   let isAuth = !access ? false : true;
+  //   // const isAuth=true
+  //   console.log(isAuth);
   let location = useLocation();
   return isAuth ? (
     children
