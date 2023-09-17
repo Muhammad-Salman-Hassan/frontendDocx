@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
-import { GetSingleApplication } from '../AdminSlice'
+import { GetAllApplications, GetSingleApplication } from '../AdminSlice'
 import Navbar from '../../components/Navbar/Navbar';
 import LightBoxImage from '../../components/LightBox/LightBox'
 import Select from '../../components/Select/Select';
@@ -14,8 +14,10 @@ const UserApplications = () => {
   // console.log(Applications.singleApplication.ApplicationImages)
   useEffect(() => {
     dispatch(GetSingleApplication(params.applicationId))
+    dispatch(GetAllApplications())
 
   }, []);
+ console.log(params)
 
   return (
     <>
@@ -26,7 +28,7 @@ const UserApplications = () => {
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">
               <h3>Personal Information</h3>
-              <Select status={Applications.singleApplication.applicationStatus} />
+              <Select status={Applications.singleApplication.applicationStatus} appID={params.applicationId}/>
               {/* <img alt=""  width="80px" height="80px" className="rounded-circle"/> */}
             </div>
 

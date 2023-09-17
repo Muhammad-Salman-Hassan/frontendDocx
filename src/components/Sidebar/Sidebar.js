@@ -86,7 +86,7 @@ const Sidebar = (props) => {
               </i>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="progress"
               class="nav-link py-3 border-bottom rounded-0"
@@ -98,8 +98,8 @@ const Sidebar = (props) => {
                 <GiProgression className={`${styles.navicon}`} />
               </i>
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link
               to="profile"
               class="nav-link py-3 border-bottom rounded-0"
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
                 <ImProfile className={`${styles.navicon}`} />
               </i>
             </Link>
-          </li>
+          </li> */}
           
         </ul>
         <div class="dropdown border-top">

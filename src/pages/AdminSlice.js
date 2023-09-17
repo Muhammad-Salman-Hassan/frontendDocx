@@ -33,6 +33,22 @@ export const GetSingleApplication=(applicationId)=>async (dispatch)=>{
     }
 }
 
+export const UpdateStatus=(applicationId,applicationStatus)=>async (dispatch)=>{
+    try {
+        let response = await axios.put(`/updateStatus`,{
+            applicationId,
+            applicationStatus
+        },{
+            withCredentials: true,
+        })
+        if (response.status === 200) {
+            console.log("updated")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 const initialState = {

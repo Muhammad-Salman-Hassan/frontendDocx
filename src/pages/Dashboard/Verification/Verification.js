@@ -4,6 +4,8 @@ import { FileInputs } from "../../../components/uploadfile/UploadFile";
 import { SubmitApplication } from "./SubmitSlice";
 import VouchersUploader from "./Documents/Vouchers";
 import MarkSheetsUploader from "./Documents/Marksheets";
+import { ToastContainer } from "react-toastify";
+import { setResponseImage } from "../../../components/uploadfile/UploadSlice";
 
 
 
@@ -25,18 +27,26 @@ const Verification = () => {
     "enrolmentno": Reducer.auth.user?.UserProfile?.enrolmentno
   }
   const GoForward = () => {
-    setStep(step+1)
+
+    setStep(step + 1)
+    dispatch(setResponseImage(false))
   }
   const submit = () => {
     dispatch(SubmitApplication(post_obj))
   }
-  console.log(Reducer)
+  console.log(Reducer, "Salman")
 
   return (
 
-    <div className="w-100  d-flex justify-content-center align-items-center h-100 flex-column" style={{ overflowY: "scroll" }}>
+    <div className="w-100  d-flex justify-content-center align-items-center  flex-column" >
+      <div className="w-100">
+        {(Reducer?.UploadImageSlice?.imageresponse) && (
+          <h1 className="text-center" style={{ fontSize: "1rem" }}>Image Upload Success Fully Please Contine for further Submission</h1>
+        )}
+      </div>
       {step == 2 && (
         <div className="w-75 h-100 p-4 card">
+
           <div className="row">
             <div className="d-flex justify-content-between align-items-center">
               <h3>Personal Information</h3>
@@ -98,31 +108,31 @@ const Verification = () => {
             </div>
           </div>
           <hr />
-          <div className="d-flex  justify-content-between align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
 
-            <FileInputs />
+            <button onClick={submit} className="button-10 w-50">Submit</button>
 
           </div>
-          <button onClick={submit}>Continue</button>
+
         </div>
       )}
 
       {step == 0 && (
         <>
-          
 
-          <MarkSheetsUploader/>
 
-          <button onClick={GoForward}>Continue</button>
+          <MarkSheetsUploader />
+
+          <button onClick={GoForward} className="button-10 mt-5" disabled={Reducer?.UploadImageSlice?.images.length <= 0}>Continue</button>
         </>
       )}
 
-      {step===1&&(
+      {step === 1 && (
         <>
-        <VouchersUploader />
-        <button onClick={GoForward}>Continue</button>
+          <VouchersUploader />
+          <button onClick={GoForward} className="button-10 mt-5">Continue</button>
         </>
-        
+
       )}
 
     </div>

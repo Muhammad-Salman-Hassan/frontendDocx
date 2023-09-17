@@ -43,7 +43,7 @@ const Clearance = (props) => {
             {user[0]?.UserProfile?.fathername} department in the morning.
           </p>
           <p class="card-text" ref={ref1}>
-            It is hereby certified that {user[0]?.name} Majeed son of{" "}
+            It is hereby certified that {user[0]?.name} son of{" "}
             {user[0]?.UserProfile?.fathername} has paid all dues of the
             University including tuition and examination fees.
           </p>

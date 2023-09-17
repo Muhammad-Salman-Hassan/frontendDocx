@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FileUpload.css';
 import { useDispatch } from 'react-redux';
-import { UploadMultipleFile } from '../uploadfile/UploadSlice';
+import { UploadMultipleFile, setFiles } from '../uploadfile/UploadSlice';
+import { toast } from 'react-toastify';
 
 const ImageUploader = (props) => {
   const [images, setImages] = useState([]);
@@ -24,6 +25,11 @@ const ImageUploader = (props) => {
     setImages(updatedImages);
   };
 
+  useEffect(() => {
+   dispatch(setFiles(images))
+  }, [images])
+  
+
   console.log(images);
 
   const onUpload = () => {
@@ -34,16 +40,17 @@ const ImageUploader = (props) => {
     });
     formData.append('image_type', props.type);
     dispatch(UploadMultipleFile(formData));
+    // toast("Wow so easy !");
   };
 
   return (
-    <div className="card">
+    <div className="card p-5">
       <div className="d-flex justify-content-between w-100">
         <label htmlFor="upload-input" className="upload-label">
           <span>{props.title}</span>
           <input type="file" multiple onChange={handleFileChange} id="upload-input" className="upload-input" />
         </label>
-        <button className="upload-label" onClick={onUpload}>
+        <button className="upload-label" onClick={onUpload} disabled={images.length<=0}>
           Upload
         </button>
       </div>
